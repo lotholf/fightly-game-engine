@@ -1,43 +1,15 @@
-/* *********************************************************************
- *
- * Fightly - Web Game Engine
- * http://fightly.com
- *
- * License: see LICENSE.txt
- *
- **********************************************************************/
-
 /**
- * Class Cell
+ * Cell component.
  *
+ * @author Adrian Gaudebert - adrian@gaudebert.fr
  * @constructor
  */
-function Cell() {
-    this.type = null; // plains, mountain, swamp
-    this.x = -1;
-    this.y = -1;
-}
 
-Cell.prototype = {
+(function(exports) {
+    var Cell = {
+        "requires": "Position"
+    };
 
-    /**
-     * Transform the cell's attributs to a JSON string
-     * @return data, contains the unit attributs.
-     */
-    toJSON : function() {
+    exports.Cell = Cell;
 
-        var data = {
-            "type": this.type,
-            "x" : this.x ,
-            "y" : this.y,
-        };
-
-        return data;
-    },
-
-    toString: function() {
-		return "Cell: X = " + this.x + ", Y = " + this.y + ", Type = " + this.type;
-	},
-}
-
-module.exports = Cell;
+})(typeof exports === 'undefined' ? this['exports'] = {} : exports);
