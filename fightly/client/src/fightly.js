@@ -23,8 +23,11 @@ define(['src/network'], function (
     var onMessage = function (message) {
         console.log('onMessage: ' + message);
 
+        message = JSON.parse(message);
         if (message.hasOwnProperty('modules')) {
             console.log(message.modules);
+            // Load each file
+            // Then call loadActions and loadComponents for each module
         }
     };
 
@@ -34,15 +37,13 @@ define(['src/network'], function (
         // create network connexion
         this.server = new network.ComManager(this.config.network);
         this.server.init(function () {
-            self.loadModules();
+            self.loadModulesList();
         }, onMessage);
     };
 
-    F.prototype.loadModules = function () {
+    F.prototype.loadModulesList = function () {
         // Get modules and files list from server
         this.server.data('modules');
-        // Load each file
-        // Then call loadActions and loadComponents for each module
     };
 
     F.prototype.loadActions = function (module, module_name) {
