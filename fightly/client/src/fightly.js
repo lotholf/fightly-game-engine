@@ -7,8 +7,8 @@
  *
  **********************************************************************/
 
-define(['src/network'], function (
-        network
+define(['src/network', 'vendor/component-entity/component-entity-manager', 'vendor/action-manager/action-manager'], function (
+        network, cem, am
 ) {
     "use strict";
 
@@ -39,6 +39,12 @@ define(['src/network'], function (
         this.server.init(function () {
             self.loadModulesList();
         }, onMessage);
+
+        // create component entity manager
+        this.cem = new cem.ComponentEntityManager();
+
+        // create action manager
+        this.am = new am.ActionManager();
     };
 
     F.prototype.loadModulesList = function () {
