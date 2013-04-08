@@ -36,15 +36,16 @@ define(['src/network', 'vendor/component-entity/component-entity-manager', 'vend
 
         // create network connexion
         this.server = new network.ComManager(this.config.network);
-        this.server.init(function () {
-            self.loadModulesList();
-        }, onMessage);
 
         // create component entity manager
         this.cem = new cem.ComponentEntityManager();
 
         // create action manager
         this.am = new am.ActionManager();
+
+        this.server.init(function () {
+            self.loadModulesList();
+        }, onMessage);
     };
 
     F.prototype.loadModulesList = function () {
