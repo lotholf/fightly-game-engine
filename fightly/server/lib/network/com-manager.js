@@ -24,9 +24,8 @@ var client = require('./client')
 function ComManager(eventsListener) {
     this.listener = eventsListener;
 
-    this.server = http.createServer(function(req, res) {});
+    this.server = http.createServer(function(req, res){});
 
-     
     this.sockets = io.listen(this.server).sockets;
 
     this.clients = [];
