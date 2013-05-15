@@ -15,9 +15,6 @@ var util = require('util')
 var client = require('./client')
     ;
 
-var url = require("url")
-    , fs = require('fs')
-    ;
 /**
  * Create and handle the connections with clients.
  *
@@ -27,17 +24,9 @@ var url = require("url")
 function ComManager(eventsListener) {
     this.listener = eventsListener;
 
-    this.server = http.createServer(function(req, res) {
-        var pathname = url.parse(req.url).pathname;
-        fs.readFile("." + pathname, "binary", function(error, file) {
-            if(!error) {
-              res.writeHead(200, {"Content-Type": "application/javascript"});
-              res.write(file, "binary");
-              res.end();
-            }
-        });
-    });
+    this.server = http.createServer(function(req, res) {});
 
+     
     this.sockets = io.listen(this.server).sockets;
 
     this.clients = [];
