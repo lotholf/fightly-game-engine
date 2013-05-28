@@ -7,7 +7,12 @@
  *
  * ***************************************************************************/
 
-(function(exports) {
+// for compatibility with node.js and require.js
+if (typeof define !== 'function') {
+    var define = require('amdefine')(module)
+}
+
+define(function () {
     var Position = {
 
         "x": 0,
@@ -19,6 +24,7 @@
         }
     };
 
-    exports.Position = Position;
-
-})(typeof exports === 'undefined' ? this['exports'] = {} : exports);
+    return {
+        'Position': Position
+    };
+});

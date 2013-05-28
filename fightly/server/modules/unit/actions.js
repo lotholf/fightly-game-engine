@@ -7,8 +7,12 @@
  *
  * ***************************************************************************/
 
-(function(exports) {
+// for compatibility with node.js and require.js
+if (typeof define !== 'function') {
+    var define = require('amdefine')(module)
+}
 
+define(function () {
     var actions = {
         "move": {
             "check": function(unit, dest) {
@@ -31,7 +35,8 @@
         }
     };
 
-    exports.actions = actions;
-
-})(typeof exports === 'undefined' ? this['exports'] = {} : exports);
+    return {
+        'actions': actions
+    };
+});
 
