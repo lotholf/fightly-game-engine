@@ -41,6 +41,8 @@ var Client = function(id, socket, emitter) {
  * @param msg: JSON Message in String format
  */
 Client.prototype.send = function(msg) {
+    util.log("Data send: " + msg);
+    msg = JSON.stringify(msg);
     this.socket.send(msg);
 };
 

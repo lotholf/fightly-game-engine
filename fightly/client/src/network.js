@@ -14,8 +14,9 @@ define(['lib/socket.io'], function (socket) {
      * @author Adrian Gaudebert - adrian@gaudebert.fr
      * @constructor
      */
-    var ComManager = function(config) {
+    var ComManager = function(config, engine) {
         this.config = config;
+        this.engine = engine;
 
         this._socket = null;
     };
@@ -52,7 +53,7 @@ define(['lib/socket.io'], function (socket) {
 
         _onMessage: function(msg) {
             console.log("ComManager.onMessage: " + msg);
-            this.messageCallback.call(null, msg);
+            this.messageCallback.call(this, msg);
         },
 
         _onClose: function() {
