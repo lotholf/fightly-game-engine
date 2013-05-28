@@ -60,14 +60,20 @@ define(['src/network', 'vendor/component-entity/component-entity-manager', 'vend
         this.server.data('modules');
     };
 
-    F.prototype.loadActions = function (module, module_name) {
+    F.prototype.loadActions = function (module, moduleName) {
         // load the actions of a given module
-        console.log("http://" + this.config.fileServer.host + ":" + this.config.fileServer.port + "/" + module_name + "/" + module);
+        require(["http://" + this.config.fileServer.host + ":" + this.config.fileServer.port + "/" + moduleName + "/" + module], function (actions) {
+            this.am.addActions(moduleName, actions.actions)
+        }.bind(this));
     };
 
-    F.prototype.loadComponents = function (module, module_name) {
+    F.prototype.loadComponents = function (module, moduleName) {
         // load the components of a given module
-        console.log("http://" + this.config.fileServer.host + ":" + this.config.fileServer.port + "/" + module_name + "/" + module);
+        require(["http://" + this.config.fileServer.host + ":" + this.config.fileServer.port + "/" + moduleName + "/" + module], function (components) {
+            for (var c in components) {
+                this.cem.addComponent(c, components[c]);
+            }
+        }.bind(this));
     };
 
     return F;
