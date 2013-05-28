@@ -20,14 +20,21 @@ define(['src/network', 'vendor/component-entity/component-entity-manager', 'vend
         this.config = config;
     };
 
+    // This method is called in ComManager context
     var onMessage = function (message) {
-        console.log('onMessage: ' + message);
-
         message = JSON.parse(message);
         if (message.hasOwnProperty('modules')) {
-            console.log(message.modules);
             // Load each file
             // Then call loadActions and loadComponents for each module
+            for (var moduleName in message.modules) {
+                for (var i in message.modules[moduleName]) {
+                    if (message.modules[moduleName][i] === "actions.js") {
+                        this.engine.loadActions(message.modules[moduleName][i], moduleName);
+                    } else {
+                        this.engine.loadComponents(message.modules[moduleName][i], moduleName);
+                    }
+                }
+            }
         }
     };
 
@@ -35,7 +42,7 @@ define(['src/network', 'vendor/component-entity/component-entity-manager', 'vend
         var self = this;
 
         // create network connexion
-        this.server = new network.ComManager(this.config.network);
+        this.server = new network.ComManager(this.config.network, self);
 
         // create component entity manager
         this.cem = new cem.ComponentEntityManager();
@@ -55,10 +62,12 @@ define(['src/network', 'vendor/component-entity/component-entity-manager', 'vend
 
     F.prototype.loadActions = function (module, module_name) {
         // load the actions of a given module
+        console.log("http://" + this.config.fileServer.host + ":" + this.config.fileServer.port + "/" + module_name + "/" + module);
     };
 
     F.prototype.loadComponents = function (module, module_name) {
         // load the components of a given module
+        console.log("http://" + this.config.fileServer.host + ":" + this.config.fileServer.port + "/" + module_name + "/" + module);
     };
 
     return F;
